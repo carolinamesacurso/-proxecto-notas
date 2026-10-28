@@ -10,19 +10,19 @@ from src.clasificacion import contar_aprobados, cualificacion
 
 
 def seccion_resumo(alumnado):
-    """USUARIO 1. Devolve un texto (str) con este formato exacto:
+    notas = [alumno["nota"] for alumno in alumnado]
 
-    Alumnado: 6
-    Media: 5.92
-    Nota máxima: 9.0
-    Nota mínima: 3.5
-    Aprobados: 4
+    lineas = [
+        f"Alumnado: {len(alumnado)}",
+        f"Media: {media(notas):.2f}",
+        f"Nota máxima: {nota_maxima(notas):.1f}",
+        f"Nota mínima: {nota_minima(notas):.1f}",
+        f"Aprobados: {contar_aprobados(notas)}"
+    ]
 
-    Pistas: primeiro crea a lista só coas notas.
-    A media leva dous decimais: f"Media: {valor:.2f}"
-    Une as liñas con "\\n".join(lista_de_linas)
-    """
-    raise NotImplementedError
+    return "\n".join(lineas)
+
+
 
 
 def seccion_listado(alumnado):
@@ -43,4 +43,5 @@ def informe_completo(alumnado):
     partes = ["=== INFORME DE NOTAS ==="]
     # FASE 2: cada persoa engade AQUÍ a chamada á súa sección, por exemplo:
     # partes.append(seccion_xxx(alumnado))
+    partes.append(seccion_resumo(alumnado))
     return "\n\n".join(partes)
